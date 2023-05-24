@@ -1,4 +1,7 @@
-﻿public class MainClass
+﻿using System;
+using System.IO;
+
+public class MainClass
 {
     public static void Main()
     {

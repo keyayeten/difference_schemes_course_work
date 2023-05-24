@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Vladislav\\Desktop\\coursework\\coursework.csproj": {}
+    "C:\\Users\\Vladislav\\Desktop\\coursework\\difference_schemes_course_work\\coursework.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Vladislav\\Desktop\\coursework\\coursework.csproj": {
+    "C:\\Users\\Vladislav\\Desktop\\coursework\\difference_schemes_course_work\\coursework.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Vladislav\\Desktop\\coursework\\coursework.csproj",
+        "projectUniqueName": "C:\\Users\\Vladislav\\Desktop\\coursework\\difference_schemes_course_work\\coursework.csproj",
         "projectName": "coursework",
-        "projectPath": "C:\\Users\\Vladislav\\Desktop\\coursework\\coursework.csproj",
+        "projectPath": "C:\\Users\\Vladislav\\Desktop\\coursework\\difference_schemes_course_work\\coursework.csproj",
         "packagesPath": "C:\\Users\\Vladislav\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Vladislav\\Desktop\\coursework\\obj\\",
+        "outputPath": "C:\\Users\\Vladislav\\Desktop\\coursework\\difference_schemes_course_work\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Vladislav\\AppData\\Roaming\\NuGet\\NuGet.Config",
