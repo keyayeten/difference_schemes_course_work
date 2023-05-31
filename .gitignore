@@ -1,0 +1,36 @@
+# .NET
+bin/
+obj/
+
+# Visual Studio Code
+.vscode/
+
+# Rider
+.idea/
+*.sln.iml
+
+# NuGet Packages
+*.nupkg
+packages/
+*.nuget.props
+*.nuget.targets
+
+# MSTest test Results
+TestResults/
+
+# Build Results
+[Bb]uild/
+
+# StyleCop
+StyleCopReport.xml
+stylecop.json
+
+# Files and directories to ignore when publishing to a remote server
+node_modules/
+wwwroot/
+*.dbmdl
+*.jfm
+*.deploy.*
+*.user
+*.[Pp]ublish.xml
+*.publishproj

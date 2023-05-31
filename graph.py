@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import os
 
 
 def heat_equation_graph_ver2():
@@ -23,26 +24,23 @@ def heat_equation_graph_ver2():
 
 
 # как в примере
-def heat_equation_graph():
-    # Считываем данные из файла output.txt
-    data = np.loadtxt('output.txt', usecols=range(49))
-
+def heat_equation_graph(data):
     # Определяем количество узлов по пространственной координате N
-    N = data.shape[1]
+    for results in data:
+        N = results.shape[1]
 
-    # Устанавливаем значения параметров
-    L = 1.0
-    h = L / (N - 1)
+        # Устанавливаем значения параметров
+        L = 1.0
+        h = L / (N - 1)
 
-    # Выбираем значение времени t=20
-    t_index = int(20 / 0.25)
-    T = data[t_index, :]
+        # Выбираем значение времени t=20
+        t_index = int(20 / 0.25)
+        T = results[t_index, :]
 
-    # Определяем координаты x
-    x = np.linspace(0, L, N)
+        # Определяем координаты x
+        x = np.linspace(0, L, N)
+        plt.plot(x, T)
 
-    # Строим график распределения температуры по координате x
-    plt.plot(x, T)
     plt.title('Распределение температуры по толщине пластины\
             в момент времени t = 20')
     plt.xlabel('x')
@@ -72,10 +70,47 @@ def line_method():
 # Т2 = 100 °С через 60 секунд процесса нагрева.
 
 
-heat_equation_graph()
+def show_heat_equation():
+    # N t_end L lambda r0 c T0  Tl  Tr
+    data_preset = [f'50 60 0.1 46 7800 460 {i} 300 300'
+                   for i in range(20, 301, 40)]
+
+    info_for_graphics = []
+    with open('mode_preset.txt', 'w') as file:
+        file.write('1')
+    for data in data_preset:
+        with open('data_preset.txt', 'w') as file:
+            file.write('\n'.join(data.split()))
+        command = "dotnet run"
+        os.system(command)
+        info_for_graphics.append(np.loadtxt('output.txt', usecols=range(49)))
+
+    heat_equation_graph(info_for_graphics)
+
+
+# show_heat_equation()
+
+# heat_equation_graph_ver2()
 
 
 # Стационарное распределение температуры
 
+    # Bi  Число Био
+    # Toc   Температура среды на правой границе
+    # Hvne   Коэффициент теплоотдачи в окружающую среду
+    # Qq  Интенсивность источников тепла
+    # teta0  Начальная температура
+    # r  Число Куранта
+def show_st():
+    with open('mode_preset.txt', 'w') as file:
+        file.write('2')
+                  #Bi  Toc Hvne Qq teta0  r
+    data_preset = '1.0 0.0 0.0 0.0 1.0 1.0'
+    with open('data_preset.txt', 'w') as file:
+        file.write('\n'.join(data_preset.split()))
+    command = "dotnet run"
+    os.system(command)
+    line_method()
 
-line_method()
+
+show_st()

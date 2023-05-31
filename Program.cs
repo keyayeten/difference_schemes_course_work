@@ -5,11 +5,15 @@ public class MainClass
 {
     public static void Main()
     {
+        string choice;
         Console.WriteLine("Выберите действие:");
         Console.WriteLine("1. Решить уравнение теплопроводности");
         Console.WriteLine("2. CalculateTemperature()");
 
-        string choice = Console.ReadLine();
+        using (StreamReader sr = new StreamReader("mode_preset.txt"))
+        {
+            choice = sr.ReadLine();
+        }
         switch (choice)
         {
             case "1":
@@ -36,32 +40,18 @@ public class MainClass
         double Tl, T0, Tr, L, t_end, time;
         string path = "output.txt";
 
-        Console.WriteLine("Введите количество узлов по пространственной координате, N");
-        N = int.Parse(Console.ReadLine());
-
-        Console.WriteLine("Введите окончание по времени, t_end");
-        t_end = double.Parse(Console.ReadLine());
-
-        Console.WriteLine("Введите толщину пластины, L");
-        L = double.Parse(Console.ReadLine());
-
-        Console.WriteLine("Введите коэффициент теплопроводности материала пластины, lamda");
-        lamda = double.Parse(Console.ReadLine());
-
-        Console.WriteLine("Введите плотность материала пластины, ro");
-        ro = double.Parse(Console.ReadLine());
-
-        Console.WriteLine("Введите теплоемкость материала пластины, c");
-        c = double.Parse(Console.ReadLine());
-
-        Console.WriteLine("Введите начальную температуру, T0");
-        T0 = double.Parse(Console.ReadLine());
-
-        Console.WriteLine("Введите температуру на границе х=0, Tl");
-        Tl = double.Parse(Console.ReadLine());
-
-        Console.WriteLine("Введите температуру на границе х=L, Tr");
-        Tr = double.Parse(Console.ReadLine());
+        using (StreamReader sr = new StreamReader("data_preset.txt"))
+        {
+            N = int.Parse(sr.ReadLine());
+            t_end = double.Parse(sr.ReadLine());
+            L = double.Parse(sr.ReadLine());
+            lamda = double.Parse(sr.ReadLine());
+            ro = double.Parse(sr.ReadLine());
+            c = double.Parse(sr.ReadLine());
+            T0 = double.Parse(sr.ReadLine());
+            Tl = double.Parse(sr.ReadLine());
+            Tr = double.Parse(sr.ReadLine());
+        }
 
         double x, t;
 
@@ -97,7 +87,9 @@ public class MainClass
         }
 
         Console.WriteLine("Результаты моделирования сохранены в файле " + path);
+        Environment.Exit(0);
     }
+    // численноe решения задачи о теплопроводности в стержне конечной длины
     public static void CalculateTemperature()
     {
     const int n = 41; // Количество точек разностной сетки
@@ -109,15 +101,25 @@ public class MainClass
     double[] alfa = new double[n]; // Прогоночные коэффициенты
     double[] beta = new double[n]; // Прогоночные коэффициенты
 
-    const double Bi = 2.0; // Число Био
-    const double Toc = 0.0; // Температура среды на правой границе
-    const double Hvne = 3.0; // Коэффициент теплоотдачи в окружающую среду
-    const double Qq = 10.0; // Интенсивность источников тепла
-    const double teta0 = 1.0; // Начальная температура
-    const double r = 1.0; // Число Куранта
+    StreamReader reader = new StreamReader("data_preset.txt");
+
+    string line;
+    double Bi, Toc, Hvne, Qq, teta0, r;
+
+    // Считываем значения переменных из файла
+    line = reader.ReadLine(); Bi = double.Parse(line);
+    line = reader.ReadLine(); Toc = double.Parse(line);
+    line = reader.ReadLine(); Hvne = double.Parse(line);
+    line = reader.ReadLine(); Qq = double.Parse(line);
+    line = reader.ReadLine(); teta0 = double.Parse(line);
+    line = reader.ReadLine(); r = double.Parse(line);
+
+    // Закрываем файл
+    reader.Close();
+
     double h = 1.0 / (n - 1); // Величина шага по пространству
     double tau = r * h * h; // Величина шага по времени
-    double perwri = 0.02; // Шаг по времени выдачи результатов в файл данных
+    double perwri = 0.01; // Шаг по времени выдачи результатов в файл данных
     int kwri = 1; // Счетчик выдач в файл данных
 
     double stime = 0.0; // Текущее время процесса теплопередачи
@@ -190,5 +192,6 @@ public class MainClass
             }
         }
     }
+    Environment.Exit(0);
   }
 }
