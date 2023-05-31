@@ -64,11 +64,6 @@ def line_method():
     # Отображение графика
     plt.show()
 
-# Результаты расчетов по приведенной программе при L = 0,1 м,
-# λ = 46 Вт/(м⋅ºC), ρ = 7800 кг/м, с = 460 Дж/(кг⋅ºC),
-# Т0=20 °С, Т1 = 300 °С,
-# Т2 = 100 °С через 60 секунд процесса нагрева.
-
 
 def show_heat_equation():
     # N t_end L lambda r0 c T0  Tl  Tr
@@ -81,16 +76,11 @@ def show_heat_equation():
     for data in data_preset:
         with open('data_preset.txt', 'w') as file:
             file.write('\n'.join(data.split()))
-        command = "dotnet run"
+        command = "coursework.exe"
         os.system(command)
         info_for_graphics.append(np.loadtxt('output.txt', usecols=range(49)))
 
     heat_equation_graph(info_for_graphics)
-
-
-# show_heat_equation()
-
-# heat_equation_graph_ver2()
 
 
 # Стационарное распределение температуры
@@ -108,9 +98,11 @@ def show_st():
     data_preset = '1.0 0.0 0.0 0.0 1.0 1.0'
     with open('data_preset.txt', 'w') as file:
         file.write('\n'.join(data_preset.split()))
-    command = "dotnet run"
+    command = "coursework.exe"
     os.system(command)
     line_method()
 
 
 show_st()
+show_heat_equation()
+# heat_equation_graph_ver2()
